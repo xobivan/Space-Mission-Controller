@@ -9,4 +9,14 @@ class SequenceNode{
 
     public String getPayload() {return payload.toString();}
     public SequenceNode getNext(){return next;}
+
+
+    @Override
+    public String toString(){
+        if (next != null) {
+            return payload.toString() + "\n" + next;
+        }
+
+        return payload.toString();
+    }
 }

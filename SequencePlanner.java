@@ -1,7 +1,5 @@
-
-
 public class SequencePlanner{
-    LaunchSequence solution;
+    private LaunchSequence solution;
     private SequenceNode head;
     public SequencePlanner(LaunchSequence solution){
         this.solution = solution;
@@ -10,13 +8,16 @@ public class SequencePlanner{
 
     public boolean checkProposedSequence(LaunchSequence sequence){
         ProposedSequence propSeq = new ProposedSequence(sequence, solution);
-        SequenceNode nextProcedure = new SequenceNode(propSeq, head);
-        head = nextProcedure;
+        SequenceNode nextProcedure = new SequenceNode(propSeq, this.head);
+        this.head = nextProcedure;
         return false;
     }
 
     public String getPreviousSuggestions(){
-        return head.getNext().getPayload();
+        if (this.head == null) {
+            return null;
+        }
+        return this.head.toString();
     }
 
     public LaunchSequence getSolution(){
