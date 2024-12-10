@@ -3,14 +3,13 @@ public class SequencePlanner{
     private SequenceNode head;
     public SequencePlanner(LaunchSequence solution){
         this.solution = solution;
-        this.head = null;
     }
 
     public boolean checkProposedSequence(LaunchSequence sequence){
         ProposedSequence propSeq = new ProposedSequence(sequence, solution);
         SequenceNode nextProcedure = new SequenceNode(propSeq, this.head);
         this.head = nextProcedure;
-        return false;
+        return  propSeq.isCorrect();
     }
 
     public String getPreviousSuggestions(){
