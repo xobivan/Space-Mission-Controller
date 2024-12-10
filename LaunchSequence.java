@@ -6,7 +6,7 @@ public class LaunchSequence{
     }
 
     public int getProcedure(int i){
-        return this.sequence[i];
+        return sequence[i];
     }
 
     @Override

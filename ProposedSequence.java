@@ -7,16 +7,40 @@ public class ProposedSequence{
         this.solution = solution;
     }
 
+    public boolean isCorrect(){
+        return suggestion.toString().equals(solution.toString());
+        
+    }
+
     public LaunchSequence getSequence(){
         return suggestion;
     }
 
     public int getNumCorrect(){
-        return 0;
+        int numCorrect = 0;
+        for(int i = 0; i < 5; i++){
+            if(suggestion.getProcedure(i) == solution.getProcedure(i)){
+                numCorrect++;
+            }
+        }
+        return numCorrect;
     }
     public int getNumWrongPosition(){
-        return 0;
+        int numWrong = 0;
+        String solutionString = solution.toString().replace(" ", "");
+        String suggestionString = suggestion.toString().replace(" ", "");
+
+        for(int i = 0; i < solutionString.length(); i++){
+            if(solutionString.charAt(i) != suggestionString.charAt(i)){
+                if(solutionString.contains(String.valueOf(suggestionString.charAt(i)))){
+                    numWrong++;
+                }
+            }
+        }
+
+        return numWrong;
     }
+
 
     @Override
     public String toString(){
