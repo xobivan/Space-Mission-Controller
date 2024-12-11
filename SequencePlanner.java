@@ -14,7 +14,7 @@ public class SequencePlanner{
         Random rand = new Random();
 
         for(int i = 0; i < 5; i++){
-            int randomProcedure = rand.nextInt(1,10);
+            int randomProcedure;
             boolean isUnique = true;
             do {
                 randomProcedure = rand.nextInt(1,10);
