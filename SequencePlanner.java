@@ -1,8 +1,37 @@
+
+import java.util.Random;
+
 public class SequencePlanner{
     private LaunchSequence solution;
     private SequenceNode head;
+
     public SequencePlanner(LaunchSequence solution){
         this.solution = solution;
+    }
+    public SequencePlanner(){
+        
+        int [] randomSolution = new int[5];
+        Random rand = new Random();
+
+        for(int i = 0; i < 5; i++){
+            int randomProcedure = rand.nextInt(1,10);
+            boolean isUnique = true;
+            do {
+                randomProcedure = rand.nextInt(1,10);
+                for(int el: randomSolution){
+                    if(randomProcedure == el){
+                        isUnique = false;
+                        break;
+                    }else{isUnique = true;}
+                }          
+            } while (!isUnique);
+
+            randomSolution[i] = randomProcedure;
+
+    
+
+        }
+        this.solution = new LaunchSequence(randomSolution);
     }
 
     public boolean checkProposedSequence(LaunchSequence sequence){
