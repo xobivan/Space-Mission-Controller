@@ -1,4 +1,6 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
+
 class SequencePlannerCLI{
     
     public static void main(String[] args) {
@@ -9,7 +11,9 @@ class SequencePlannerCLI{
     public static void runSimulation(SequencePlanner sequencePlanner){
         
         boolean isCorrectSuggestion = false;
+        int numOfAttempts = 0;
         do{
+            numOfAttempts++;
             System.out.println("Previous attempts:");
             if(sequencePlanner.getPreviousSuggestions() != null){
                 System.out.println(sequencePlanner.getPreviousSuggestions());
@@ -22,11 +26,18 @@ class SequencePlannerCLI{
             int[] user_sequence = new int[5];
             boolean isValid = false;
             LaunchSequence suggestion = new LaunchSequence(user_sequence);
+            
             while(!isValid){
                 System.out.println("Enter new sequence:");
                 int i = 0;
                 while(i<5){
-                    user_sequence[i] = input.nextInt();
+                    try {
+                        user_sequence[i] = input.nextInt();
+                    } catch (InputMismatchException e) {
+                        input.nextLine();
+                        break;
+                    }
+                    
                     i++;
                 }
 
@@ -39,8 +50,12 @@ class SequencePlannerCLI{
          
             if(sequencePlanner.checkProposedSequence(suggestion)){
                 System.out.println("Sequence verified!");
+                System.out.println("The final sequence is:");
+                System.out.println(printProcedures(user_sequence));
+                System.out.println("You needed " + numOfAttempts + " attempts to find the sequence.");
                 isCorrectSuggestion = true;
             }
+            
         }while(!isCorrectSuggestion);
     }
 
@@ -61,5 +76,26 @@ class SequencePlannerCLI{
 
         return true;
 
+    }
+
+    public static String printProcedures(int[] correctSequence){
+        String proceduresString = "";
+        String[] procedures = new String[]{
+            "System Check",
+            "Fuel Loading",
+            "Navigation Setup",
+            "Communication Test",
+            "Engine Ignition",
+            "Weather Verification",
+            "Crew Boarding",
+            "Safety Override",
+            "Launch Pad Clear"            
+        };
+    
+        for(int el: correctSequence){
+            proceduresString+=procedures[el-1] + "\n";
+        }
+
+        return proceduresString.trim();
     }
 }
