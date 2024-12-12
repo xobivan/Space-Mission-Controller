@@ -7,16 +7,25 @@ class SequenceNode{
         this.next = next;
     }
 
-    public String getPayload() {return payload.toString();}
+    public String getValue() {return payload.toString();}
     public SequenceNode getNext(){return next;}
 
 
     @Override
     public String toString(){
+        SequenceNode pointer = this;
+        String history = "";
+
         if (next != null) {
-            return payload.toString() + "\n" + next;
+            while(pointer!=null){
+                history+=pointer.getValue()+ "\n";
+                pointer = pointer.getNext();
+            }
+            return history;
+        }else{
+            return payload.toString();
         }
 
-        return payload.toString();
+        
     }
 }
